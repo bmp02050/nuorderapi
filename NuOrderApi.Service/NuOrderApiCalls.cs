@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using Newtonsoft.Json;
+using NuOrderApi.Model.BuyerCollection;
+using NuOrderApi.Model.CatalogCollection;
 using NuOrderApi.Model.Order;
 
 namespace NuOrderApi.Service
@@ -19,6 +22,152 @@ namespace NuOrderApi.Service
             _baseUrl = "https://nuorder.com/api/";
         }
 
+        #region Buyer Collection
+        public Buyer AddBuyerToCompanyById(string id, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/{id}/add/buyer";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("PUT", url, SerializeObject(buyer)))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        public Buyer AddBuyerToCompanyByCompanyCode(string companyCode, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/code/{companyCode}/add/buyer";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("PUT", url, SerializeObject(buyer)))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        public Buyer UpdateBuyerByCompanyId(string id, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/{id}/update/buyer/{buyer.Email}";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeObject(buyer)))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        public Buyer UpdateBuyerByCompanyCode(string companyCode, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/code/{companyCode}/update/buyer/{buyer.Email}";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeObject(buyer)))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+
+        public Buyer DeleteBuyerByCompanyId(string id, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/{id}/buyer/{buyer.Email}";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("DELETE", url))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        public Buyer DeleteBuyerByCompanyCode(string companyCode, Buyer buyer)
+        {
+            var url = $"{_baseUrl}company/code/{companyCode}/buyer/{buyer.Email}";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("DELETE", url))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        public Buyer DeleteAllBuyerByCompanyId(string id)
+        {
+            var url = $"{_baseUrl}company/{id}/buyers";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("DELETE", url))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        public Buyer DeleteAllBuyerByCompanyCode(string companyCode)
+        {
+            var url = $"{_baseUrl}company/code/{companyCode}/buyers";
+            var result = string.Empty;
+            
+            using (var response = _nuOrderWebService.ExecuteRequest("DELETE", url))
+            {
+                if (response != null)
+                {
+                    using var reader = new StreamReader(response.GetResponseStream() ??
+                                                        throw new WebException("GetResponseStream failed"));
+                    result = reader.ReadToEnd();
+                }
+            }
+
+            return JsonConvert.DeserializeObject<Buyer>(result);
+        }
+        
+        #endregion
+        #region Order Collection
         public Order GetOrderById(string id)
         {
             var url = $"{_baseUrl}order/{id}";
@@ -102,7 +251,7 @@ namespace NuOrderApi.Service
             var url = $"{_baseUrl}order/new";
             var result = string.Empty;
 
-            using (var response = _nuOrderWebService.ExecuteRequest("PUT", url, SerializeOrder(order)))
+            using (var response = _nuOrderWebService.ExecuteRequest("PUT", url, SerializeObject(order)))
             {
                 if (response != null)
                 {
@@ -119,7 +268,7 @@ namespace NuOrderApi.Service
             var url = $"{_baseUrl}order/{id}";
             var result = string.Empty;
 
-            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeOrder(order)))
+            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeObject(order)))
             {
                 if (response != null)
                 {
@@ -136,7 +285,7 @@ namespace NuOrderApi.Service
             var url = $"{_baseUrl}order/{number}";
             var result = string.Empty;
 
-            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeOrder(order)))
+            using (var response = _nuOrderWebService.ExecuteRequest("POST", url, SerializeObject(order)))
             {
                 if (response != null)
                 {
@@ -208,11 +357,11 @@ namespace NuOrderApi.Service
             return false;
         }
 
-        private string SerializeOrder(Order order)
+        private string SerializeObject<T>(T @object)
         {
             try
             {
-                return JsonConvert.SerializeObject(order);
+                return JsonConvert.SerializeObject(@object);
             }
             catch (Exception e)
             {
@@ -222,5 +371,14 @@ namespace NuOrderApi.Service
         }
 
         #endregion
+        #endregion
+
+        #region Catalog Collection
+
+        //TODO Create Catalog Collection
+
+        #endregion
+        
+        
     }
 }
