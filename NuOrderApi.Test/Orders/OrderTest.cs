@@ -90,5 +90,25 @@ namespace NuOrderApi.Test.Order
         {
             Assert.Throws<WebException>(() =>  _nuOrderApiCalls.GetOrdersByStatus("cheese"));
         }
+        [Fact]
+        public void ShouldGetOrderListByStatus()
+        {
+            try
+            {
+                List<string> orders = _nuOrderApiCalls.GetOrderListByStatus(OrderStatus.Draft);
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false);
+            }
+            
+        }
+        
+        [Fact]
+        public void ShouldThrowExceptionGetOrderListByStatus()
+        {
+            Assert.Throws<WebException>(() =>  _nuOrderApiCalls.GetOrderListByStatus("cheese"));
+        }
     }
 }
