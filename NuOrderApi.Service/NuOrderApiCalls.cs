@@ -37,9 +37,9 @@ namespace NuOrderApi.Service
             return JsonConvert.DeserializeObject<Order>(result);
         }
 
-        public Order GetOrderByNumber(string id)
+        public Order GetOrderByNumber(string number)
         {
-            var url = $"{_baseUrl}order/number/{id}";
+            var url = $"{_baseUrl}order/number/{number}";
             var result = string.Empty;
 
             using (var response = _nuOrderWebService.ExecuteRequest("GET", url))

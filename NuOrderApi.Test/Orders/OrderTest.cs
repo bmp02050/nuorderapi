@@ -28,6 +28,7 @@ namespace NuOrderApi.Test.Order
             _nuOrderApiCalls = new NuOrderApiCalls(_nuOrderWebService);
         }
 
+        
         [Fact]
         public void ShouldGetOrderById()
         {
@@ -109,6 +110,29 @@ namespace NuOrderApi.Test.Order
         public void ShouldThrowExceptionGetOrderListByStatus()
         {
             Assert.Throws<WebException>(() =>  _nuOrderApiCalls.GetOrderListByStatus("cheese"));
+        }
+        
+        [Fact]
+        public void ShouldPutNewOrder()
+        {
+            try
+            {
+                Model.Order.Order order = _nuOrderApiCalls.GetOrderByNumber("60396810");
+                order.OrderNumber = "testtesttest";
+                Model.Order.Order createdOrder = _nuOrderApiCalls.PutNewOrder(order);
+                Assert.True(true);
+            }
+            catch (Exception ex)
+            {
+                Assert.True(false);
+            }
+            
+        }
+        
+        [Fact]
+        public void ShouldThrowExceptionPutNewOrder()
+        {
+            Assert.Throws<WebException>(() =>  _nuOrderApiCalls.PutNewOrder(new Model.Order.Order()));
         }
     }
 }
