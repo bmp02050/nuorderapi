@@ -5,19 +5,19 @@ using Newtonsoft.Json;
 namespace NuOrderApi.Model.Order
 {
     [Serializable]
-    public class NuOrderShipments
+    public class Shipments
     {
         [JsonProperty("type")]
         public string ShippingType { get; set; }
         [JsonProperty("tracking_numbers")]
         public List<string> TrackingNumbers { get; set; }
         [JsonProperty("line_items")]
-        public List<NuOrderLine> LineItems { get; set; }
+        public List<Line> LineItems { get; set; }
 
-        public NuOrderShipments()
+        public Shipments()
         {
             TrackingNumbers = new List<string>();
-            LineItems = new List<NuOrderLine>();
+            LineItems = new List<Line>();
         }
     }
 }

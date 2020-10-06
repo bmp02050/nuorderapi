@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 namespace NuOrderApi.Model.Order
 {
     [Serializable]
-    public class NuOrderLine
+    public class Line
     {
         [JsonProperty("product")]
-        public NuOrderProduct Product { get; set; }
+        public Product Product { get; set; }
         [JsonProperty("discount")]
         public decimal Discount { get; set; }
         [JsonProperty("ship_start")]
@@ -20,13 +20,13 @@ namespace NuOrderApi.Model.Order
         [JsonProperty("warehouse")]
         public string Warehouse { get; set; }
         [JsonProperty("sizes")]
-        public List<NuOrderSizes> Sizes { get; set; }
+        public List<Sizes> Sizes { get; set; }
         [JsonProperty("prebook")]
         public bool Prebook { get; set; }
 
-        public NuOrderLine()
+        public Line()
         {
-            Sizes = new List<NuOrderSizes>();
+            Sizes = new List<Sizes>();
         }
     }
 }

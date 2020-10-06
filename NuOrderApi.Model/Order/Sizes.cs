@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace NuOrderApi.Model.Order
 {
     [Serializable]
-    public class NuOrderSizes
+    public class Sizes
     {
         [JsonProperty("size")]
         public string Size {get;set;}
@@ -13,11 +13,11 @@ namespace NuOrderApi.Model.Order
         [JsonProperty("quantity")]
         public int Quantity {get;set;}
         [JsonProperty("price")]
-        public decimal Price {get;set;}
+        public decimal? Price {get;set;}
         [JsonProperty("original_price")]
-        public decimal OriginalPrice{get;set;}
+        public decimal? OriginalPrice{get;set;}
 
-        public NuOrderSizes()
+        public Sizes()
         {
             
         }

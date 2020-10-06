@@ -7,39 +7,56 @@ namespace NuOrderApi.Model.Order
     [Serializable]
     public class Order
     {
-        [JsonProperty("order_number")] public string OrderNumber { get; set; }
+        [JsonProperty("order_number")] 
+        public string OrderNumber { get; set; }
 
-        [JsonProperty("external_id")] public string ExternalId { get; set; }
+        [JsonProperty("external_id")] 
+        public string ExternalId { get; set; }
 
-        [JsonProperty("customer_po_number")] public string CustomerPoNumber { get; set; }
+        [JsonProperty("customer_po_number")] 
+        public string CustomerPoNumber { get; set; }
 
-        [JsonProperty("currency_code")] public string CurrencyCode { get; set; }
+        [JsonProperty("currency_code")] 
+        public string CurrencyCode { get; set; }
 
-        [JsonProperty("status")] public string Status { get; set; }
+        [JsonProperty("status")] 
+        public string Status { get; set; }
 
-        [JsonProperty("discount")] public decimal Discount { get; set; }
-        [JsonProperty("start_ship")] public string StartShip { get; set; }
+        [JsonProperty("discount")] 
+        public decimal? Discount { get; set; }
+        
+        [JsonProperty("start_ship")] 
+        public string StartShip { get; set; }
 
         [JsonProperty("end_ship")]
         public string EndShip { get; set; }
+        
         [JsonProperty("rep_code")]
         public string RepCode { get; set; }
+        
         [JsonProperty("rep_email")]
         public string RepEmail { get; set; }
+        
         [JsonProperty("notes")]
         public string Notes { get; set; }
+        
         [JsonProperty("billing_address")]
-        public NuOrderAddress BillingAddress { get; set; }
+        public Address BillingAddress { get; set; }
+        
         [JsonProperty("shipping_address")]
-        public NuOrderAddress ShippingAddress { get; set; }
+        public Address ShippingAddress { get; set; }
+        
         [JsonProperty("retailer")]
-        public NuOrderRetailer Retailer { get; set; }
+        public Retailer Retailer { get; set; }
+        
         [JsonProperty("line_items")]
-        public List<NuOrderLine> LineItems { get; set; }
+        public List<Line> LineItems { get; set; }
+        
         [JsonProperty("total")]
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
+        
         [JsonProperty("shipments")]
-        public List<NuOrderShipments> Shipments { get; set; }
+        public List<Shipments> Shipments { get; set; }
 
         [JsonProperty("created_on")]
         public string CreatedOn { get; set; }
@@ -48,8 +65,8 @@ namespace NuOrderApi.Model.Order
         public string DiscountedTotal { get; set; }
         public Order()
         {
-            LineItems = new List<NuOrderLine>();
-            Shipments = new List<NuOrderShipments>();
+            LineItems = new List<Line>();
+            Shipments = new List<Shipments>();
         }
         
         

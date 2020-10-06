@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace NuOrderApi.Model.Order
 {
     [Serializable]
-    public class NuOrderRetailer
+    public class Retailer
     {
         [JsonProperty("buyer_name")]
         public string BuyerName {get;set;}
@@ -19,7 +19,7 @@ namespace NuOrderApi.Model.Order
         public string RetailerCode { get; set; }
         
 
-        public NuOrderRetailer()
+        public Retailer()
         {
             
         }
